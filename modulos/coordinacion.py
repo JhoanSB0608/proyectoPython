@@ -116,7 +116,14 @@ def listar_campers_aprobados_inicial(evaluaciones_modulo_list, campers_list):
                 print(f"{camper['Nombre']} {camper['Apellido']} - {camper['N_Identificacion']} ha aprobado el examen inicial.")
 
 def menu_coordinacion(campers_list, matriculas_list, evaluaciones_modulo_list):
-    print("\n== Menú de Coordinación ==")
+    print(""" 
+  __  __ _____ _   _ _   _       ____   _    ____      _           ____ ___   ___  ____  ____ ___ _   _    _    ____ ___ ___  _   _ 
+ |  \/  | ____| \ | | | | |     |  _ \ / \  |  _ \    / \         / ___/ _ \ / _ \|  _ \|  _ \_ _| \ | |  / \  / ___|_ _/ _ \| \ | |
+ | |\/| |  _| |  \| | | | |     | |_) / _ \ | |_) |  / _ \       | |  | | | | | | | |_) | | | | ||  \| | / _ \| |    | | | | |  \| |
+ | |  | | |___| |\  | |_| |     |  __/ ___ \|  _ <  / ___ \      | |__| |_| | |_| |  _ <| |_| | || |\  |/ ___ \ |___ | | |_| | |\  |
+ |_|  |_|_____|_| \_|\___/      |_| /_/   \_\_| \_\/_/   \_\      \____\___/ \___/|_| \_\____/___|_| \_/_/   \_\____|___\___/|_| \_|
+                                                                                                                                    
+ """)
     print("1. Asignar Camper a Ruta")
     print("2. Asignar Notas a Camper")
     print("3. Asignar Estado a Camper")
@@ -125,7 +132,7 @@ def menu_coordinacion(campers_list, matriculas_list, evaluaciones_modulo_list):
     print("6. Listar Campers que Aprobaron el Examen Inicial")
     print("7. Salir")
     opcion = input("Seleccione una opción: ")
-
+ 
     if opcion == "1":
         asignar_camper_a_ruta()
     elif opcion == "2":
