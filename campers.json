@@ -1,0 +1,9 @@
+{
+    "N_Identificacion": "(int)",
+    "Nombre": "(str)",
+    "Apellido": "(str)",
+    "Direccion": "(str)",
+    "Acuediente": "(str)",
+    "Estado": "(str)"
+}  
+                                
