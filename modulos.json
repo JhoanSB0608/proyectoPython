@@ -1,0 +1,6 @@
+{
+    "Nombre_Modulo": "(str)",
+    "Codigo": "(int)",
+    "Temario": "(list)",
+    "Periodo": "(str)"
+}

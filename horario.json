@@ -1,0 +1,5 @@
+{
+    "Nombre_Jornada": "(str)",
+    "Codigo": "(int)",
+    "Hora": "(list)"
+}

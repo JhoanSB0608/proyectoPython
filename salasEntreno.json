@@ -1,0 +1,5 @@
+{
+    "Nombre_Sala": "(str)",
+    "Codigo": "(int)",
+    "Capacidad": "(int)"
+}

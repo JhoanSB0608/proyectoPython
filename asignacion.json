@@ -1,0 +1,9 @@
+{
+    "Codigo_Ruta": "(int)",
+    "Codigo_Sala": "(int)",
+    "N_Identificacion_Trainer": "(int)",
+    "N_Identificacion_Camper": "(int)",
+    "Fecha_Inicio": "(str)",
+    "Fecha_Fin": "(str)",
+    "Codigo_Horario": "(int)"
+}
