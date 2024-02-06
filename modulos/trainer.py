@@ -42,7 +42,14 @@ def agregar_entrenador(entrenadores):
     print()
 
 def mostrar_menu():
-    print("MENU:")
+    print(""" 
+  __  __ _____ _   _ _   _       ____   _    ____      _          _____ ____      _    ___ _   _ _____ ____  
+ |  \/  | ____| \ | | | | |     |  _ \ / \  |  _ \    / \        |_   _|  _ \    / \  |_ _| \ | | ____|  _ \ 
+ | |\/| |  _| |  \| | | | |     | |_) / _ \ | |_) |  / _ \         | | | |_) |  / _ \  | ||  \| |  _| | |_) |
+ | |  | | |___| |\  | |_| |     |  __/ ___ \|  _ <  / ___ \        | | |  _ <  / ___ \ | || |\  | |___|  _ < 
+ |_|  |_|_____|_| \_|\___/      |_| /_/   \_\_| \_\/_/   \_\       |_| |_| \_\/_/   \_\___|_| \_|_____|_| \_\
+                                                                                                             
+ """)
     print("1. Ver información de todos los entrenadores")
     print("2. Agregar un nuevo entrenador")
     print("3. Guardar cambios")
