@@ -59,17 +59,14 @@ def mostrar_aprobados_y_perdidos_modulos():
     pass
 
 # Cargar datos existentes o inicializar estructuras de datos vacías
-def cargar_datos_desde_json(archivo):
+def cargar_datos_desde_json(nombre_archivo):
     try:
-        with open(archivo, 'r') as file:
-            datos = json.load(file)
-        return datos
-    except FileNotFoundError:
-        print(f"El archivo {archivo} no existe.")
-        return None
-    except json.JSONDecodeError:
-        print(f"Error al decodificar el archivo {archivo}.")
-        return None
+        with open(nombre_archivo, 'r') as file:
+            data = json.load(file)
+        return data
+    except json.JSONDecodeError as e:
+        print(f"Error al cargar datos desde JSON: {e}")
+        return {}
     
 campers_list = cargar_datos_desde_json("campers.json") or []
 pruebas_list = cargar_datos_desde_json("pruebas.json") or []
@@ -78,3 +75,6 @@ rutas_entrenamiento_list = cargar_datos_desde_json("rutas_entrenamiento.json") o
 entrenadores_list = cargar_datos_desde_json("entrenadores.json") or []
 matriculas_list = cargar_datos_desde_json("matriculas.json") or []
 evaluaciones_modulo_list = cargar_datos_desde_json("evaluaciones_modulo.json") or []
+
+if __name__ == "__main__":
+    menu_informes()
