@@ -115,7 +115,7 @@ def listar_campers_aprobados_inicial(evaluaciones_modulo_list, campers_list):
             if camper:
                 print(f"{camper['Nombre']} {camper['Apellido']} - {camper['N_Identificacion']} ha aprobado el examen inicial.")
 
-def menu_coordinacion(campers_list, matriculas_list, evaluaciones_modulo_list):
+def menu_coordinacion():
     print(""" 
   __  __ _____ _   _ _   _       ____   _    ____      _           ____ ___   ___  ____  ____ ___ _   _    _    ____ ___ ___  _   _ 
  |  \/  | ____| \ | | | | |     |  _ \ / \  |  _ \    / \         / ___/ _ \ / _ \|  _ \|  _ \_ _| \ | |  / \  / ___|_ _/ _ \| \ | |
@@ -156,9 +156,5 @@ entrenadores_list = cargar_datos_desde_json("entrenadores.json") or []
 matriculas_list = cargar_datos_desde_json("matriculas.json") or []
 evaluaciones_modulo_list = cargar_datos_desde_json("evaluaciones_modulo.json") or []
 
-while True:
-    print("\n== Menú Principal ==")
-    print("1. Menú de Coordinación")
-    opcion = input("Seleccione una opción: ")
-    if opcion == "1":
-        menu_coordinacion(campers_list, matriculas_list, evaluaciones_modulo_list)
+if __name__ == "__main__":
+    menu_coordinacion()
