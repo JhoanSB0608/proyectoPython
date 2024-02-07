@@ -1,8 +1,18 @@
-{
-    "N_Identificacion": "(int)",
-    "Nombre": "(str)",
-    "Apellido": "(str)",
-    "Direccion": "(str)",
-    "Acuediente": "(str)",
-    "Estado": "(str)"
-}                            
+[
+    {
+        "N_Identificacion": 1,
+        "Nombre": "Juan",
+        "Apellido": "Perez",
+        "Direccion": "Calle 123",
+        "Acuediente": "Maria",
+        "Estado": "Inscrito"
+    },
+    {
+        "N_Identificacion": 2,
+        "Nombre": "Ana",
+        "Apellido": "Gomez",
+        "Direccion": "Avenida 456",
+        "Acuediente": "Pedro",
+        "Estado": "Inscrito"
+    }
+]      

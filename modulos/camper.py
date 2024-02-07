@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 class Camper:
     def __init__(self, id, nombre, apellido, direccion, acudiente, telefono_celular, telefono_fijo, estado):
@@ -17,7 +16,8 @@ def cargar_datos_desde_json(nombre_archivo):
         with open(nombre_archivo, 'r') as file:
             data = json.load(file)
         return data
-    except FileNotFoundError:
+    except json.JSONDecodeError as e:
+        print(f"Error al cargar datos desde JSON: {e}")
         return {}
 
 def guardar_datos_en_json(nombre_archivo, data):
@@ -85,5 +85,6 @@ def ver_estado_camper():
             break
     else:
         print("Camper no encontrado.")
-
-menu()
+        
+if __name__ == "__main__":
+        menu()
