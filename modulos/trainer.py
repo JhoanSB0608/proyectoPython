@@ -1,4 +1,5 @@
 import json
+
 from datetime import datetime
 
 class Entrenador:
@@ -13,7 +14,8 @@ def cargar_datos_desde_json(nombre_archivo):
         with open(nombre_archivo, 'r') as file:
             data = json.load(file)
         return data
-    except FileNotFoundError:
+    except json.JSONDecodeError as e:
+        print(f"Error al cargar datos desde JSON: {e}")
         return {}
 
 def guardar_datos_en_json(nombre_archivo, data):
@@ -77,4 +79,4 @@ def main():
             print("Opción no válida. Por favor, seleccione una opción válida.")
 
 if __name__ == "__main__":
-    main()
+        main()
