@@ -82,17 +82,6 @@ def asignar_estado_a_camper(campers_list):
     else:
         print("Camper no encontrado.")
 
-def asignar_salon(id_camper, id_ruta, matriculas_list):
-    salon_entrenamiento = input("Ingrese el salón de entrenamiento: ")
-    for matricula in matriculas_list:
-        if matricula["N_Identificacion_Camper"] == id_camper and matricula["Codigo_Ruta"] == id_ruta:
-            matricula["Salon_Entrenamiento"] = salon_entrenamiento
-            print("Salón de entrenamiento asignado exitosamente.")
-            guardar_datos_en_json("matriculas.json", matriculas_list)
-            break
-    else:
-        print("Matrícula no encontrada para el Camper y ruta proporcionados.")
-
 def asignar_trainer_y_horario(id_camper, id_ruta, matriculas_list):
     id_entrenador = input("Ingrese la identificación del entrenador: ")
     horario = input("Ingrese el horario del entrenador: ")
@@ -126,10 +115,9 @@ def menu_coordinacion():
     print("1. Asignar Camper a Ruta")
     print("2. Asignar Notas a Camper")
     print("3. Asignar Estado a Camper")
-    print("4. Asignar Salón")
-    print("5. Asignar Trainer y Horario")
-    print("6. Listar Campers que Aprobaron el Examen Inicial")
-    print("7. Salir")
+    print("4. Asignar Trainer y Horario")
+    print("5. Listar Campers que Aprobaron el Examen Inicial")
+    print("6. Salir")
     opcion = input("Seleccione una opción: ")
  
     if opcion == "1":
@@ -139,12 +127,10 @@ def menu_coordinacion():
     elif opcion == "3":
         asignar_estado_a_camper(campers_list)
     elif opcion == "4":
-        asignar_salon()
-    elif opcion == "5":
         asignar_trainer_y_horario()
-    elif opcion == "6":
+    elif opcion == "5":
         listar_campers_aprobados_inicial(evaluaciones_modulo_list, campers_list)
-    elif opcion == "7":
+    elif opcion == "6":
         print("¡Hasta luego!")
 
 campers_list = cargar_datos_desde_json("campers.json") or []
