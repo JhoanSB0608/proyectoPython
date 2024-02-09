@@ -14,5 +14,15 @@
         "Direccion": "Avenida 456",
         "Acuediente": "Pedro",
         "Estado": "Inscrito"
+    },
+    {
+        "N_Identificacion": 1,
+        "Nombre": "1",
+        "Apellido": "1",
+        "Direccion": "1",
+        "Acudiente": "1",
+        "Telefono_Celular": "1",
+        "Telefono_Fijo": "1",
+        "Estado": "1"
     }
-]      
+]

@@ -1,4 +1,5 @@
 import json
+# from modulos.camper import Camper
 
 class Camper:
     def __init__(self, id, nombre, apellido, direccion, acudiente, telefono_celular, telefono_fijo, estado):
@@ -50,7 +51,6 @@ def menu():
             break
         else:
             print("Opción no válida. Intente de nuevo.")
-
 def registrar_datos_camper():
     id_camper = input("Ingrese su número de identificación: ")
     try:
@@ -58,16 +58,16 @@ def registrar_datos_camper():
     except ValueError:
         print("Número de identificación no válido. Intente de nuevo.")
         return
-
+    
     nombre = input("Ingrese su nombre: ")
     apellido = input("Ingrese su apellido: ")
     direccion = input("Ingrese su dirección: ")
     telefono_celular = input("Ingrese su número de teléfono celular: ")
     telefono_fijo = input("Ingrese su número de teléfono fijo: ")
-    estado = "Inscrito"
-    
-    camper = Camper(id_camper, nombre, apellido, direccion, telefono_celular, telefono_fijo, estado)
-    campers_list.append(camper.__dict__)
+    estado = input("Ingrese el estado del camper: ")
+    acudiente = input("Ingrese el nombre del acudiente: ")
+    nuevo_camper = Camper(id_camper, nombre, apellido, direccion, acudiente, telefono_celular, telefono_fijo, estado)
+    campers_list.append(nuevo_camper.__dict__)
     guardar_datos_en_json("campers.json", campers_list)
     print("¡Datos registrados exitosamente!")
 
