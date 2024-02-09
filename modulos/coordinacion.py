@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 class PruebasDeSeleccion:
     def __init__(self, id, fecha, nota_teorica, nota_practica):
