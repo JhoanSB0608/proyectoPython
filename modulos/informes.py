@@ -58,7 +58,6 @@ def mostrar_aprobados_y_perdidos_modulos():
     # Implementa la lógica para mostrar cuántos campers aprobaron y perdieron cada módulo
     pass
 
-# Cargar datos existentes o inicializar estructuras de datos vacías
 def cargar_datos_desde_json(nombre_archivo):
     try:
         with open(nombre_archivo, 'r') as file:
