@@ -1,13 +1,19 @@
 import json
 
-from datetime import datetime
-
 class Entrenador:
     def __init__(self, id, nombre, rutas_asignadas, horario):
         self.N_Identificacion = id
         self.Nombre = nombre
         self.Rutas_Asignadas = rutas_asignadas
         self.Horario = horario
+
+    def to_json(self):
+        return {
+            "N_Identificacion": self.N_Identificacion,
+            "Nombre": self.Nombre,
+            "Rutas_Asignadas": self.Rutas_Asignadas,
+            "Horario": self.Horario
+        }
 
 def cargar_datos_desde_json(nombre_archivo):
     try:
@@ -17,10 +23,16 @@ def cargar_datos_desde_json(nombre_archivo):
     except json.JSONDecodeError as e:
         print(f"Error al cargar datos desde JSON: {e}")
         return {}
-
+    
 def guardar_datos_en_json(nombre_archivo, data):
+    data_dict = []
+    for obj in data:
+        if isinstance(obj, Entrenador):
+            obj_dict = obj.to_json()
+            data_dict.append(obj_dict)
+
     with open(nombre_archivo, 'w') as file:
-        json.dump(data, file, indent=4)
+        json.dump(data_dict, file, indent=4)
 
 def mostrar_info_entrenadores(entrenadores):
     if not entrenadores:
@@ -49,7 +61,7 @@ def mostrar_menu():
  |  \/  | ____| \ | | | | |     |  _ \ / \  |  _ \    / \        |_   _|  _ \    / \  |_ _| \ | | ____|  _ \ 
  | |\/| |  _| |  \| | | | |     | |_) / _ \ | |_) |  / _ \         | | | |_) |  / _ \  | ||  \| |  _| | |_) |
  | |  | | |___| |\  | |_| |     |  __/ ___ \|  _ <  / ___ \        | | |  _ <  / ___ \ | || |\  | |___|  _ < 
- |_|  |_|_____|_| \_|\___/      |_| /_/   \_\_| \_\/_/   \_\       |_| |_| \_\/_/   \_\___|_| \_|_____|_| \_\
+ |_|  |_|_____|_| \_|\___/      |_| /_/   \_\_| \_\/_/   \_\       |_| |_| \_\/_/   \_\___|_| \_|_____|_| \_|
                                                                                                              
  """)
     print("1. Ver información de todos los entrenadores")
@@ -79,4 +91,4 @@ def main():
             print("Opción no válida. Por favor, seleccione una opción válida.")
 
 if __name__ == "__main__":
-        main()
+    main()
