@@ -1,4 +1,7 @@
 import modulos.camper as camper
+import modulos.coordinacion as coordinacion
+import modulos.trainer as trainer
+import modulos.informes as informes
 
 def menu_principal():
     while True:
