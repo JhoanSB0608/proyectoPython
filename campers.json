@@ -24,5 +24,15 @@
         "Telefono_Celular": "1",
         "Telefono_Fijo": "1",
         "Estado": "1"
+    },
+    {
+        "N_Identificacion": 1102488667,
+        "Nombre": "Jhoan",
+        "Apellido": "Barreto",
+        "Direccion": "Calle 37",
+        "Acudiente": "Juan Barreto",
+        "Telefono_Celular": "3046046934",
+        "Telefono_Fijo": "6598844",
+        "Estado": "Inscrito"
     }
 ]

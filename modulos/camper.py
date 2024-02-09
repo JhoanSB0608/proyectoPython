@@ -11,20 +11,22 @@ class Camper:
         self.Telefono_Fijo = telefono_fijo
         self.Estado = estado
 
-def cargar_datos_desde_json(nombre_archivo):
+def cargar_campers_desde_json():
     try:
-        with open(nombre_archivo, 'r') as file:
-            data = json.load(file)
-        return data
-    except json.JSONDecodeError as e:
-        print(f"Error al cargar datos desde JSON: {e}")
-        return {}
+        with open('campers.json', 'r') as file:
+            return json.loads(file.read())
+    except FileNotFoundError:
+        return []
 
-def guardar_datos_en_json(nombre_archivo, data):
-    with open(nombre_archivo, 'w') as file:
-        json.dump(data, file, indent=4)
+def guardar_datos_en_json(data):
+    try:
+        with open('campers.json', 'w') as file:
+            file.write(json.dumps(data, indent=4))
+            print("Datos guardados correctamente en el archivo campers.json")
+    except Exception as e:
+        print(f"Error al guardar los datos: {e}")
 
-campers_list = cargar_datos_desde_json("campers.json") or []
+Campers_list = cargar_campers_desde_json()
 
 def menu():
     while True:
@@ -50,6 +52,7 @@ def menu():
             break
         else:
             print("Opción no válida. Intente de nuevo.")
+
 def registrar_datos_camper():
     id_camper = input("Ingrese su número de identificación: ")
     try:
@@ -66,8 +69,8 @@ def registrar_datos_camper():
     estado = input("Ingrese el estado del camper: ")
     acudiente = input("Ingrese el nombre del acudiente: ")
     nuevo_camper = Camper(id_camper, nombre, apellido, direccion, acudiente, telefono_celular, telefono_fijo, estado)
-    campers_list.append(nuevo_camper.__dict__)
-    guardar_datos_en_json("campers.json", campers_list)
+    Campers_list.append(nuevo_camper.__dict__)
+    guardar_datos_en_json(Campers_list)
     print("¡Datos registrados exitosamente!")
 
 def ver_estado_camper():
@@ -78,7 +81,7 @@ def ver_estado_camper():
         print("Número de identificación no válido. Intente de nuevo.")
         return
 
-    for camper in campers_list:
+    for camper in Campers_list:
         if camper["N_Identificacion"] == id_camper:
             print("Estado actual:", camper["Estado"])
             break
@@ -86,4 +89,4 @@ def ver_estado_camper():
         print("Camper no encontrado.")
         
 if __name__ == "__main__":
-        menu()
+    menu()
