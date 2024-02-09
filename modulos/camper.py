@@ -1,5 +1,4 @@
 import json
-# from modulos.camper import Camper
 
 class Camper:
     def __init__(self, id, nombre, apellido, direccion, acudiente, telefono_celular, telefono_fijo, estado):
