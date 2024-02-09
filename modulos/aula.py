@@ -8,11 +8,13 @@ def cargar_datos(archivo):
         return datos
     except FileNotFoundError:
         print(f"El archivo {archivo} no existe.")
+        return [] 
     except json.JSONDecodeError:
         print(f"Error al decodificar el archivo JSON {archivo}. El formato podría ser incorrecto.")
+        return []  
     except Exception as e:
         print(f"Error desconocido al cargar el archivo {archivo}: {e}")
-        return []
+        return []  
 
 def guardar_datos(nombre_archivo, data):
     try:
@@ -38,7 +40,7 @@ def crear_aula(lista_aulas):
 
     lista_aulas.append(aula)
     print("Se creó el aula con éxito.")
-    guardar_datos("data/aulas.json", lista_aulas)
+    guardar_datos("salasEntreno.json", lista_aulas)
 
 
 def listar_aulas(lista_aulas):
