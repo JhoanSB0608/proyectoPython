@@ -1,34 +1,63 @@
 import json
 
 class Camper:
-    def __init__(self, id, nombre, apellido, direccion, acudiente, telefono_celular, telefono_fijo, estado):
-        self.N_Identificacion = id
-        self.Nombre = nombre
-        self.Apellido = apellido
-        self.Direccion = direccion
-        self.Acudiente = acudiente
-        self.Telefono_Celular = telefono_celular
-        self.Telefono_Fijo = telefono_fijo
-        self.Estado = estado
+    def __init__(self, Nro_Identificacion, Nombre, Apellidos, Direccion, Acudiente, Telefono_Celular, Telefono_Fijo, Estado):
+        self.Nro_Identificacion = Nro_Identificacion
+        self.Nombre = Nombre
+        self.Apellidos = Apellidos
+        self.Direccion = Direccion
+        self.Acudiente = Acudiente
+        self.Telefono_Celular = Telefono_Celular
+        self.Telefono_Fijo = Telefono_Fijo
+        self.Estado = Estado
 
-def cargar_campers_desde_json():
+def registrar_camper():
     try:
-        with open('campers.json', 'r') as file:
-            return json.loads(file.read())
+        camper = {}
+        camper["Nro_Identificacion"] = int(input("Ingrese el número de identificación del camper: "))
+        camper["Nombre"] = input("Ingrese el nombre del camper: ")
+        camper["Apellidos"] = input("Ingrese los apellidos del camper: ")
+        camper["Direccion"] = input("Ingrese la dirección del camper: ")
+        camper["Acudiente"] = input("Ingrese el nombre del acudiente del camper: ")
+        camper["Telefono_Celular"] = input("Ingrese el número de teléfono celular del camper: ")
+        camper["Telefono_Fijo"] = input("Ingrese el número de teléfono fijo del camper: ")
+        camper["Estado"] = "Inscrito"  
+        
+        campers_list = cargar_datos_desde_json("campers.json")
+        
+        campers_list.append(camper)
+        
+        guardar_datos_en_json("campers.json", campers_list)
+        
+        print("Camper registrado exitosamente.")
+    except ValueError:
+        print("Error: Por favor ingrese un número válido para el número de identificación.")
+    except Exception as e:
+        print(f"Error al registrar el camper: {e}")
+
+def cargar_datos_desde_json(nombre_archivo):
+    try:
+        with open(nombre_archivo, 'r') as file:
+            data = json.load(file)
+        return data
     except FileNotFoundError:
+        print(f"El archivo {nombre_archivo} no existe.")
+        return []
+    except json.JSONDecodeError as e:
+        print(f"Error al cargar datos desde JSON: {e}")
         return []
 
-def guardar_datos_en_json(data):
+def guardar_datos_en_json(nombre_archivo, data):
     try:
-        with open('campers.json', 'w') as file:
-            file.write(json.dumps(data, indent=4))
-            print("Datos guardados correctamente en el archivo campers.json")
+        with open(nombre_archivo, 'w') as file:
+            json.dump(data, file, indent=4)
+        print(f"Datos guardados correctamente en el archivo {nombre_archivo}.")
     except Exception as e:
-        print(f"Error al guardar los datos: {e}")
-
-Campers_list = cargar_campers_desde_json()
+        print(f"Error al guardar los datos en el archivo {nombre_archivo}: {e}")
 
 def menu():
+    campers_list = cargar_datos_desde_json("campers.json")
+    
     while True:
         print(""" 
   __  __ _____ _   _ _   _       ____   _    ____      _           ____    _    __  __ ____  _____ ____  ____  
@@ -44,16 +73,16 @@ def menu():
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
-            registrar_datos_camper()
+            registrar_datos_camper(campers_list)
         elif opcion == "2":
-            ver_estado_camper()
+            ver_estado_camper(campers_list)
         elif opcion == "3":
             print("¡Hasta luego!")
             break
         else:
             print("Opción no válida. Intente de nuevo.")
 
-def registrar_datos_camper():
+def registrar_datos_camper(campers_list):
     id_camper = input("Ingrese su número de identificación: ")
     try:
         id_camper = int(id_camper)
@@ -69,11 +98,11 @@ def registrar_datos_camper():
     estado = input("Ingrese el estado del camper: ")
     acudiente = input("Ingrese el nombre del acudiente: ")
     nuevo_camper = Camper(id_camper, nombre, apellido, direccion, acudiente, telefono_celular, telefono_fijo, estado)
-    Campers_list.append(nuevo_camper.__dict__)
-    guardar_datos_en_json(Campers_list)
+    campers_list.append(nuevo_camper.__dict__)
+    guardar_datos_en_json("campers.json", campers_list)
     print("¡Datos registrados exitosamente!")
 
-def ver_estado_camper():
+def ver_estado_camper(campers_list):
     id_camper = input("Ingrese su número de identificación: ")
     try:
         id_camper = int(id_camper)
@@ -81,8 +110,8 @@ def ver_estado_camper():
         print("Número de identificación no válido. Intente de nuevo.")
         return
 
-    for camper in Campers_list:
-        if camper["N_Identificacion"] == id_camper:
+    for camper in campers_list:
+        if camper["Nro_Identificacion"] == id_camper:
             print("Estado actual:", camper["Estado"])
             break
     else:

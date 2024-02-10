@@ -1,38 +1,12 @@
 [
     {
-        "N_Identificacion": 1,
-        "Nombre": "Juan",
-        "Apellido": "Perez",
-        "Direccion": "Calle 123",
-        "Acuediente": "Maria",
-        "Estado": "Inscrito"
-    },
-    {
-        "N_Identificacion": 2,
-        "Nombre": "Ana",
-        "Apellido": "Gomez",
-        "Direccion": "Avenida 456",
-        "Acuediente": "Pedro",
-        "Estado": "Inscrito"
-    },
-    {
-        "N_Identificacion": 1,
-        "Nombre": "1",
-        "Apellido": "1",
-        "Direccion": "1",
-        "Acudiente": "1",
-        "Telefono_Celular": "1",
-        "Telefono_Fijo": "1",
-        "Estado": "1"
-    },
-    {
-        "N_Identificacion": 1102488667,
+        "Nro_Identificacion": 1102488667,
         "Nombre": "Jhoan",
-        "Apellido": "Barreto",
+        "Apellidos": "Barreto",
         "Direccion": "Calle 37",
         "Acudiente": "Juan Barreto",
         "Telefono_Celular": "3046046934",
         "Telefono_Fijo": "6598844",
-        "Estado": "Inscrito"
+        "Estado": "Pre-Inscrito"
     }
 ]
