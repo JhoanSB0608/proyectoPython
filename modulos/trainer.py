@@ -19,7 +19,13 @@ def cargar_datos_desde_json(nombre_archivo):
     try:
         with open(nombre_archivo, 'r') as file:
             data = json.load(file)
-        return data
+        
+        entrenadores = {}
+        for item in data:
+            entrenador = Entrenador(item['N_Identificacion'], item['Nombre'], item['Rutas_Asignadas'], item['Horario'])
+            entrenadores[item['N_Identificacion']] = entrenador
+
+        return entrenadores
     except json.JSONDecodeError as e:
         print(f"Error al cargar datos desde JSON: {e}")
         return {}
@@ -39,7 +45,7 @@ def mostrar_info_entrenadores(entrenadores):
         print("No hay entrenadores registrados.")
     else:
         print("Información de todos los entrenadores:")
-        for entrenador in entrenadores.values():
+        for entrenador in entrenadores.values(): 
             print(f"ID: {entrenador.N_Identificacion}, Nombre: {entrenador.Nombre}, Rutas Asignadas: {entrenador.Rutas_Asignadas}, Horario: {entrenador.Horario}")
         print()
 
@@ -50,7 +56,7 @@ def agregar_entrenador(entrenadores):
     horario_entrenador = input("Ingrese el horario del nuevo entrenador: ")
 
     nuevo_entrenador = Entrenador(id_entrenador, nombre_entrenador, rutas_asignadas, horario_entrenador)
-    entrenadores[id_entrenador] = nuevo_entrenador
+    entrenadores.append(nuevo_entrenador)
 
     print("Nuevo entrenador agregado exitosamente.")
     print()
