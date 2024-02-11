@@ -13,5 +13,17 @@
         "Nombre_Sala": "Apolo",
         "Codigo": 3,
         "Capacidad": 33
+    },
+    {
+        "Nombre": "Artemis",
+        "Capacidad_Maxima": 33,
+        "Capacidad_Actual": 0,
+        "Ruta_Asignada": "java"
+    },
+    {
+        "Nombre": "Sputnik",
+        "Capacidad_Maxima": 33,
+        "Capacidad_Actual": 0,
+        "Ruta_Asignada": "java"
     }
 ]

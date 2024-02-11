@@ -52,8 +52,22 @@ def guardar_datos_en_json(nombre_archivo, data):
         json.dump(data, file, indent=4)
 
 def asignar_camper_a_ruta():
-    id_camper = int(input("Ingrese el número de identificación del Camper: "))
-    id_ruta = int(input("Ingrese el código de la ruta de entrenamiento: "))
+    while True:
+        id_camper = input("Ingrese el número de identificación del Camper: ")
+        if id_camper.isdigit():
+            id_camper = int(id_camper)
+            break
+        else:
+            print("Por favor, ingrese un número entero válido.")
+
+    while True:
+        id_ruta = input("Ingrese el código de la ruta de entrenamiento: ")
+        if id_ruta.isdigit():
+            id_ruta = int(id_ruta)
+            break
+        else:
+            print("Por favor, ingrese un número entero válido.")
+
     asignar_ruta(id_camper, id_ruta)
 
 def asignar_ruta(id_camper, id_ruta):
