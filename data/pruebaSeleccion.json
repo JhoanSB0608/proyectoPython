@@ -1,0 +1,16 @@
+[
+    {
+        "Nombre": "Juan",
+        "Nota_Teorica": 85,
+        "Nota_Practica": 75,
+        "Promedio": 80,
+        "Estado": "Aprobado"
+    },
+    {
+        "Nombre": "María",
+        "Nota_Teorica": 70,
+        "Nota_Practica": 65,
+        "Promedio": 67.5,
+        "Estado": "Aprobado"
+    }
+]

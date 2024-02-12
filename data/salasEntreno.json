@@ -1,0 +1,17 @@
+[
+    {
+        "Nombre_Sala": "Sputnik",
+        "Codigo": 1,
+        "Capacidad": 33
+    },
+    {
+        "Nombre_Sala": "Artemis",
+        "Codigo": 2,
+        "Capacidad": 33
+    },
+    {
+        "Nombre_Sala": "Apolo",
+        "Codigo": 3,
+        "Capacidad": 33
+    }
+]

@@ -1,0 +1,22 @@
+[
+    {
+        "Nro_Identificacion": 1102488667,
+        "Nombre": "Jhoan",
+        "Apellidos": "Barreto",
+        "Direccion": "Calle 37",
+        "Acudiente": "Juan Barreto",
+        "Telefono_Celular": "3046046934",
+        "Telefono_Fijo": "6598844",
+        "Estado": "Inscrito"
+    },
+    {
+        "Nro_Identificacion": 1095302707,
+        "Nombre": "Manuel",
+        "Apellidos": "Barreto",
+        "Direccion": "Calle 38",
+        "Acudiente": "Ciro Barreto",
+        "Telefono_Celular": "3224715964",
+        "Telefono_Fijo": "6595566",
+        "Estado": "Inscrito"
+    }
+]

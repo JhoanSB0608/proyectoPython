@@ -1,0 +1,32 @@
+[
+    {
+        "ruta_nodejs": {
+            "nombre": "NodeJS",
+            "fundamentos": ["Introducción a la algoritmia", "PSeInt", "Python"],
+            "programacion_web": ["HTML", "CSS", "Bootstrap"],
+            "programacion_formal": ["JavaScript"],
+            "bases_datos": ["MongoDb", "Postgresql"],
+            "backend": ["NodeJS", "Express"]
+        }
+    },
+    {
+        "ruta_java": {
+            "nombre": "Java",
+            "fundamentos": ["Introducción a la algoritmia", "PSeInt", "Python"],
+            "programacion_web": ["HTML", "CSS", "Bootstrap", "JavaScript"],
+            "programacion_formal": ["Java"],
+            "bases_datos": ["Mysql", "MongoDb"],
+            "backend": ["Spring Boot"]
+        }
+    },
+    {
+        "ruta_netcore": {
+            "nombre": "NetCore",
+            "fundamentos": ["Introducción a la algoritmia", "PSeInt", "Python"],
+            "programacion_web": ["HTML", "CSS", "JavaScript"],
+            "programacion_formal": ["C#"],
+            "bases_datos": ["Mysql", "MongoDb", "Postgresql"],
+            "backend": ["NetCore"]
+        }
+    }
+]
