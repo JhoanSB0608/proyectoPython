@@ -93,7 +93,14 @@ def menu_aula():
     lista_trainers = []
 
     while True:
-        print("\n--- Menú ---")
+        print(""" 
+     _   _   _ _        _    ____  
+    / \ | | | | |      / \  / ___| 
+   / _ \| | | | |     / _ \ \___ \ 
+  / ___ \ |_| | |___ / ___ \ ___) |
+ /_/   \_\___/|_____/_/   \_\____/ 
+                                   
+""")
         print("1. Listar aulas")
         print("2. Asignar camper a ruta")
         print("3. Asignar trainer a ruta")
