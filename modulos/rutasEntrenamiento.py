@@ -1,17 +1,20 @@
 import os
 import json
 
-def load_rutas_json():
+def cargar_datos_desde_json(nombre_archivo):
     try:
-        with open(os.path.join("data", "rutas_entrenamiento.json"), 'r') as rutas_json:        
-            lista_rutasEntrenamiento = json.load(rutas_json)
-            print("La lista de rutas de entrenamiento ha sido cargada")
-            return lista_rutasEntrenamiento
-    except Exception as e:
-        print(f"Error al cargar el archivo: {e}")
-        return [] 
+        with open(nombre_archivo, 'r') as file:
+            data = json.load(file)
+        return data
+    except FileNotFoundError:
+        print(f"El archivo {nombre_archivo} no existe.")
+        return []
+    except json.JSONDecodeError as e:
+        print(f"Error al cargar datos desde JSON: {e}")
+        return []
 
-lista_rutasEntrenamiento = load_rutas_json()
+def load_rutas_json():
+    return cargar_datos_desde_json(os.path.join("data/rutas_entrenamiento.json"))
 
 def rutas_entrenamiento(lista_rutasEntrenamiento):
     
@@ -52,7 +55,7 @@ def rutas_entrenamiento(lista_rutasEntrenamiento):
 
 def guardar_json_rutas(lista_rutasEntrenamiento):
     try:
-        with open(os.path.join("data", "rutas_entrenamiento.json"), 'w') as rutas_json:
+        with open(os.path.join("data", "data/rutas_entrenamiento.json"), 'w') as rutas_json:
             json.dump(lista_rutasEntrenamiento, rutas_json, indent=2)
             print("La lista de rutas de entrenamiento ha sido guardada") 
     except FileNotFoundError:
