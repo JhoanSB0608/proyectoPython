@@ -56,7 +56,7 @@ def agregar_entrenador(entrenadores):
     horario_entrenador = input("Ingrese el horario del nuevo entrenador: ")
 
     nuevo_entrenador = Entrenador(id_entrenador, nombre_entrenador, rutas_asignadas, horario_entrenador)
-    entrenadores.append(nuevo_entrenador)
+    entrenadores[id_entrenador] = nuevo_entrenador
 
     print("Nuevo entrenador agregado exitosamente.")
     print()
@@ -72,11 +72,13 @@ def mostrar_menu():
  """)
     print("1. Ver información de todos los entrenadores")
     print("2. Agregar un nuevo entrenador")
-    print("3. Guardar cambios")
-    print("4. Salir")
+    print("3. Actualizar datos de un entrenador")
+    print("4. Eliminar un entrenador")
+    print("5. Guardar cambios")
+    print("6. Salir")
 
 def main():
-    nombre_archivo = "entrenadores.json"
+    nombre_archivo = "data/entrenadores.json"
     datos = cargar_datos_desde_json(nombre_archivo)
 
     while True:
@@ -88,13 +90,48 @@ def main():
         elif opcion == "2":
             agregar_entrenador(datos)
         elif opcion == "3":
-            guardar_datos_en_json(nombre_archivo, datos)
-            print("Cambios guardados exitosamente.")
+            actualizar_entrenador(datos)
         elif opcion == "4":
+            eliminar_entrenador(datos)
+        elif opcion == "5":
+            guardar_cambios(nombre_archivo, datos)
+            print("Cambios guardados exitosamente.")
+        elif opcion == "6":
             print("Saliendo del programa. ¡Hasta luego!")
             break
         else:
             print("Opción no válida. Por favor, seleccione una opción válida.")
+
+def actualizar_entrenador(entrenadores):
+    id_entrenador = input("Ingrese la identificación del entrenador a actualizar: ")
+    if id_entrenador in entrenadores:
+        print("Datos actuales del entrenador:")
+        print(entrenadores[id_entrenador].to_json())
+      
+        entrenadores[id_entrenador].Nombre = input("Ingrese el nuevo nombre del entrenador: ")
+        entrenadores[id_entrenador].Rutas_Asignadas = input("Ingrese las nuevas rutas asignadas al entrenador (separadas por comas): ").split(',')
+        entrenadores[id_entrenador].Horario = input("Ingrese el nuevo horario del entrenador: ")
+        print("Entrenador actualizado exitosamente.")
+    else:
+        print("No se encontró ningún entrenador con esa identificación.")
+
+def eliminar_entrenador(entrenadores):
+    id_entrenador = input("Ingrese la identificación del entrenador a eliminar: ")
+    if id_entrenador in entrenadores:
+        del entrenadores[id_entrenador]
+        print("Entrenador eliminado exitosamente.")
+    else:
+        print("No se encontró ningún entrenador con esa identificación.")
+
+def guardar_cambios(nombre_archivo, datos):
+    data_dict = []
+    for obj in datos.values():
+        if isinstance(obj, Entrenador):
+            obj_dict = obj.to_json()
+            data_dict.append(obj_dict)
+
+    with open(nombre_archivo, 'w') as file:
+        json.dump(data_dict, file, indent=4)
 
 if __name__ == "__main__":
     main()
