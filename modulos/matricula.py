@@ -51,8 +51,8 @@ def guardar_datos_en_json(nombre_archivo, data):
     with open(nombre_archivo, 'w') as file:
         json.dump(data, file, indent=4)
         
-campers_list = cargar_datos_desde_json("campers.json") or []
-lista_aulas = cargar_datos_desde_json("salasEntreno.json") or []
+campers_list = cargar_datos_desde_json("data/campers.json") or []
+lista_aulas = cargar_datos_desde_json("data/salasEntreno.json") or []
 
 def matricula():
     while True:
