@@ -1,32 +1,58 @@
 [
     {
-        "ruta_nodejs": {
-            "nombre": "NodeJS",
-            "fundamentos": ["Introducción a la algoritmia", "PSeInt", "Python"],
-            "programacion_web": ["HTML", "CSS", "Bootstrap"],
-            "programacion_formal": ["JavaScript"],
-            "bases_datos": ["MongoDb", "Postgresql"],
-            "backend": ["NodeJS", "Express"]
-        }
+        "Nombre": "NodeJS",
+        "Modulos": [
+            "Introducci\u00c3\u00b3n a la algoritmia",
+            "PSeInt",
+            "Python",
+            "HTML",
+            "CSS",
+            "Bootstrap",
+            "JavaScript",
+            "MongoDb",
+            "Postgresql",
+            "NodeJS",
+            "Express"
+        ],
+        "Campers": [],
+        "Trainer": null
     },
     {
-        "ruta_java": {
-            "nombre": "Java",
-            "fundamentos": ["Introducción a la algoritmia", "PSeInt", "Python"],
-            "programacion_web": ["HTML", "CSS", "Bootstrap", "JavaScript"],
-            "programacion_formal": ["Java"],
-            "bases_datos": ["Mysql", "MongoDb"],
-            "backend": ["Spring Boot"]
-        }
+        "Nombre": "Java",
+        "Modulos": [
+            "Introducci\u00c3\u00b3n a la algoritmia",
+            "PSeInt",
+            "Python",
+            "HTML",
+            "CSS",
+            "Bootstrap",
+            "JavaScript",
+            "Java",
+            "Mysql",
+            "MongoDb",
+            "Spring Boot"
+        ],
+        "Campers": [
+            "1102488667"
+        ],
+        "Trainer": "88232385"
     },
     {
-        "ruta_netcore": {
-            "nombre": "NetCore",
-            "fundamentos": ["Introducción a la algoritmia", "PSeInt", "Python"],
-            "programacion_web": ["HTML", "CSS", "JavaScript"],
-            "programacion_formal": ["C#"],
-            "bases_datos": ["Mysql", "MongoDb", "Postgresql"],
-            "backend": ["NetCore"]
-        }
+        "Nombre": "NetCore",
+        "Modulos": [
+            "Introducci\u00c3\u00b3n a la algoritmia",
+            "PSeInt",
+            "Python",
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "C#",
+            "Mysql",
+            "MongoDb",
+            "Postgresql",
+            "NetCore"
+        ],
+        "Campers": [],
+        "Trainer": null
     }
 ]
