@@ -1,6 +1,6 @@
 import json
 
-class PruebasDeSeleccion:
+class PruebaSeleccion:
     def __init__(self, nombre, nota_teorica, nota_practica, promedio, estado):
         self.Nombre = nombre
         self.Nota_Teorica = nota_teorica
@@ -8,18 +8,28 @@ class PruebasDeSeleccion:
         self.Promedio = promedio
         self.Estado = estado
 
+    def to_dict(self):
+        return {
+            "Nombre": self.Nombre,
+            "Nota_Teorica": self.Nota_Teorica,
+            "Nota_Practica": self.Nota_Practica,
+            "Promedio": self.Promedio,
+            "Estado": self.Estado
+        }
+
 class AreaEntrenamiento:
     def __init__(self, nombre, capacidad_maxima):
-        self.Nombre = nombre
+        self.Nombre_Sala = nombre 
         self.Capacidad_Maxima = capacidad_maxima
         self.Campers = []
+        self.Trainer = None
 
 class RutaEntrenamiento:
-    def __init__(self, nombre, sgdb_principal, sgdb_alternativo, modulos):
+    def __init__(self, nombre, modulos):
         self.Nombre = nombre
-        self.SGDB_Principal = sgdb_principal
-        self.SGDB_Alternativo = sgdb_alternativo
         self.Modulos = modulos
+        self.Campers = []
+        self.Trainer = None
 
 class Matricula:
     def __init__(self, id_camper, id_entrenador, id_ruta, fecha_inicio, fecha_fin, salon_entrenamiento):
@@ -43,7 +53,42 @@ def cargar_datos_desde_json(nombre_archivo):
     try:
         with open(nombre_archivo, 'r') as file:
             data = json.load(file)
-        return data if isinstance(data, list) else []
+        
+        if "rutas_entrenamiento" in nombre_archivo:
+            rutas = []
+            for item in data:
+                if isinstance(item, dict):
+                    nombre = item.get('Nombre')
+                    if nombre:
+                        modulos = [
+                            *item.get('Modulos', [])
+                        ]
+                        nueva_ruta = RutaEntrenamiento(nombre, modulos)
+                        rutas.append(nueva_ruta)
+                    else:
+                        print("La ruta no tiene un nombre válido.")
+                else:
+                    print("El valor de la ruta no es un diccionario válido.")
+            
+            return rutas
+        elif "salasEntreno" in nombre_archivo:
+            areas = []
+            for item in data:
+                if isinstance(item, dict):
+                    nombre_sala = item.get('Nombre_Sala')
+                    if nombre_sala:
+                        capacidad = item.get('Capacidad')
+                        nueva_area = AreaEntrenamiento(nombre_sala, capacidad)
+                        areas.append(nueva_area)
+                    else:
+                        print("El área no tiene un nombre válido.")
+                else:
+                    print("El valor del área no es un diccionario válido.")
+            
+            return areas
+        else:
+            print("El nombre del archivo no coincide con ningún tipo de datos conocido.")
+            return []
     except json.JSONDecodeError as e:
         print(f"Error al cargar datos desde JSON: {e}")
         return []
@@ -54,16 +99,18 @@ def guardar_datos_en_json(nombre_archivo, data):
 
 def rutas_entrenamiento_existentes():
     print("Rutas de entrenamiento existentes:")
-    rutas_disponibles = ["Ruta NodeJS", "Ruta Java", "Ruta NetCore"]
-    for ruta in rutas_disponibles:
-        print("-", ruta)
+    for ruta in rutas_entrenamiento_list:
+        print("-", ruta.Nombre)
+
+def areas_entrenamiento_disponibles():
+    print("Áreas de entrenamiento disponibles:")
+    for area in areas_entrenamiento_list:
+        print("-", area.Nombre_Sala) 
 
 def crear_ruta_nueva():
     nombre_ruta = input("Ingrese el nombre de la nueva ruta: ")
-    sgdb_principal = input("Ingrese el SGDB principal: ")
-    sgdb_alternativo = input("Ingrese el SGDB alternativo: ")
     modulos = input("Ingrese los módulos separados por coma: ").split(",")
-    nueva_ruta = RutaEntrenamiento(nombre_ruta, sgdb_principal, sgdb_alternativo, modulos)
+    nueva_ruta = RutaEntrenamiento(nombre_ruta, modulos)
     rutas_entrenamiento_list.append(nueva_ruta)
     guardar_datos_en_json("data/rutas_entrenamiento.json", [ruta.__dict__ for ruta in rutas_entrenamiento_list])
     print("Nueva ruta creada exitosamente.")
@@ -74,94 +121,44 @@ def registro_notas_prueba():
     nota_practica = float(input("Nota práctica: "))
     promedio = (nota_teorica + nota_practica) / 2
     estado = "Aprobado" if promedio >= 60 else "Reprobado"
-    nueva_prueba = PruebasDeSeleccion(nombre_camper, nota_teorica, nota_practica, promedio, estado)
-    pruebas_list.append(nueva_prueba)
-    guardar_datos_en_json("data/pruebas.json", [prueba.__dict__ for prueba in pruebas_list])
+    nueva_prueba = PruebaSeleccion(nombre_camper, nota_teorica, nota_practica, promedio, estado)
+    pruebas_list.append(nueva_prueba.to_dict())
+    guardar_datos_en_json("data/pruebaSeleccion.json", pruebas_list)
     print("Registro de notas exitoso.")
 
-def asignacion_rutas_entrenamiento():
-    horario = input("Ingrese el horario (mañana/tarde): ")
-    disponibles = []
-    asignados = []
+def asignar_campers_entrenador_a_ruta():
+    rutas_entrenamiento_existentes()
+    ruta_seleccionada = input("Ingrese el nombre de la ruta seleccionada: ")
+    trainer_asignado = input("Ingrese el ID del entrenador asignado: ")
+    campers_a_asignar = input("Ingrese los ID de los campers a asignar (separados por comas): ").split(",")
 
-    if horario == "mañana":
-        for ruta in rutas_entrenamiento_list:
-            disponibles.append(ruta)
+    for ruta in rutas_entrenamiento_list:
+        if ruta.Nombre == ruta_seleccionada:
+            for camper_id in campers_a_asignar:
+                ruta.Campers.append(camper_id)
+            ruta.Trainer = trainer_asignado
+            guardar_datos_en_json("data/rutas_entrenamiento.json", [ruta.__dict__ for ruta in rutas_entrenamiento_list])
+            print("Asignación exitosa.")
+            return
 
-        for matricula in matriculas_list:
-            if matricula["Horario_Entrenador"] == "tarde":
-                ruta_tarde = next((ruta for ruta in rutas_entrenamiento_list if ruta.Nombre == matricula.Codigo_Ruta), None)
-                if ruta_tarde in disponibles:
-                    disponibles.remove(ruta_tarde)
-                asignados.append(matricula)
+    print("La ruta seleccionada no existe.")
 
-    elif horario == "tarde":
-        for ruta in rutas_entrenamiento_list:
-            disponibles.append(ruta)
+def asignar_campers_entrenador_a_area():
+    areas_entrenamiento_disponibles()
+    area_seleccionada = input("Ingrese el nombre del área seleccionada: ")
+    trainer_asignado = input("Ingrese el ID del entrenador asignado: ")
+    campers_a_asignar = input("Ingrese los ID de los campers a asignar (separados por comas): ").split(",")
 
-        for matricula in matriculas_list:
-            if matricula["Horario_Entrenador"] == "mañana":
-                ruta_manana = next((ruta for ruta in rutas_entrenamiento_list if ruta.Nombre == matricula.Codigo_Ruta), None)
-                if ruta_manana in disponibles:
-                    disponibles.remove(ruta_manana)
-                asignados.append(matricula)
+    for area in areas_entrenamiento_list:
+        if area.Nombre_Sala == area_seleccionada: 
+            for camper_id in campers_a_asignar:
+                area.Campers.append(camper_id)
+            area.Trainer = trainer_asignado
+            guardar_datos_en_json("data/salasEntreno.json", [area.__dict__ for area in areas_entrenamiento_list])
+            print("Asignación exitosa.")
+            return
 
-    print("Rutas disponibles:")
-    for i, ruta in enumerate(disponibles, 1):
-        print(f"{i}. {ruta.Nombre}")
-
-    while True:
-        opcion = input("Seleccione la ruta a asignar (ingrese el número correspondiente): ")
-        if opcion.isdigit():
-            opcion = int(opcion)
-            if 1 <= opcion <= len(disponibles):
-                break
-            else:
-                print("Opción fuera de rango. Intente de nuevo.")
-        else:
-            print("Entrada no válida. Por favor, ingrese un número válido.")
-
-    ruta_seleccionada = disponibles[opcion - 1]
-
-    # Asignar campers y trainer a la ruta seleccionada
-    # (Implementar la lógica de asignación de campers y trainers a la ruta seleccionada)
-
-def asignacion_areas_entrenamiento():
-    horario = input("Ingrese el horario (mañana/tarde): ")
-    disponibles = []
-    asignados = []
-
-    if horario == "mañana":
-        for area in areas_entrenamiento_list:
-            disponibles.append(area)
-
-        for matricula in matriculas_list:
-            if matricula["Horario_Entrenador"] == "tarde":
-                area_tarde = next((area for area in areas_entrenamiento_list if area.Nombre == matricula.Salon_Entrenamiento), None)
-                if area_tarde in disponibles:
-                    disponibles.remove(area_tarde)
-                asignados.append(matricula)
-
-    elif horario == "tarde":
-        for area in areas_entrenamiento_list:
-            disponibles.append(area)
-
-        for matricula in matriculas_list:
-            if matricula["Horario_Entrenador"] == "mañana":
-                area_manana = next((area for area in areas_entrenamiento_list if area.Nombre == matricula.Salon_Entrenamiento), None)
-                if area_manana in disponibles:
-                    disponibles.remove(area_manana)
-                asignados.append(matricula)
-
-    print("Áreas de entrenamiento disponibles:")
-    for i, area in enumerate(disponibles, 1):
-        print(f"{i}. {area.Nombre}")
-
-    opcion = int(input("Seleccione el área a asignar: "))
-    area_seleccionada = disponibles[opcion - 1]
-
-    # Asignar campers y trainer al área seleccionada
-    # (Implementar la lógica de asignación de campers y trainers al área seleccionada)
+    print("El área seleccionada no existe.")
 
 def menu_coordinacion():
     print(""" 
@@ -188,16 +185,16 @@ def menu_coordinacion():
     elif opcion == "3":
         registro_notas_prueba()
     elif opcion == "4":
-        asignacion_rutas_entrenamiento()
+        asignar_campers_entrenador_a_ruta()
     elif opcion == "5":
-        asignacion_areas_entrenamiento()
+        asignar_campers_entrenador_a_area()
     elif opcion == "6":
         print("¡Hasta luego!")
 
 campers_list = cargar_datos_desde_json("data/campers.json") or []
 pruebas_list = cargar_datos_desde_json("data/pruebaSeleccion.json") or []
 areas_entrenamiento_list = cargar_datos_desde_json("data/salasEntreno.json") or []
-rutas_entrenamiento_list = cargar_datos_desde_json("data/rutas.json") or []
+rutas_entrenamiento_list = cargar_datos_desde_json("data/rutas_entrenamiento.json") or []
 entrenadores_list = cargar_datos_desde_json("data/entrenadores.json") or []
 matriculas_list = cargar_datos_desde_json("data/matriculas.json") or []
 evaluaciones_modulo_list = cargar_datos_desde_json("data/evaluaciones_modulo.json") or []
