@@ -23,11 +23,11 @@ def registrar_camper():
         camper["Telefono_Fijo"] = input("Ingrese el número de teléfono fijo del camper: ")
         camper["Estado"] = "Inscrito"  
         
-        campers_list = cargar_datos_desde_json("campers.json")
+        campers_list = cargar_datos_desde_json("data/campers.json")
         
         campers_list.append(camper)
         
-        guardar_datos_en_json("campers.json", campers_list)
+        guardar_datos_en_json("data/campers.json", campers_list)
         
         print("Camper registrado exitosamente.")
     except ValueError:
@@ -56,7 +56,7 @@ def guardar_datos_en_json(nombre_archivo, data):
         print(f"Error al guardar los datos en el archivo {nombre_archivo}: {e}")
 
 def menu():
-    campers_list = cargar_datos_desde_json("campers.json")
+    campers_list = cargar_datos_desde_json("data/campers.json")
     
     while True:
         print(""" 
@@ -69,14 +69,20 @@ def menu():
  """)
         print("1. Registrar Datos")
         print("2. Ver Estado")
-        print("3. Salir")
+        print("3. Actualizar Datos")
+        print("4. Eliminar Camper")
+        print("5. Salir")
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
-            registrar_datos_camper(campers_list)
+            registrar_camper()
         elif opcion == "2":
             ver_estado_camper(campers_list)
         elif opcion == "3":
+            actualizar_camper(campers_list)
+        elif opcion == "4":
+            eliminar_camper(campers_list)
+        elif opcion == "5":
             print("¡Hasta luego!")
             break
         else:
@@ -99,7 +105,7 @@ def registrar_datos_camper(campers_list):
     acudiente = input("Ingrese el nombre del acudiente: ")
     nuevo_camper = Camper(id_camper, nombre, apellido, direccion, acudiente, telefono_celular, telefono_fijo, estado)
     campers_list.append(nuevo_camper.__dict__)
-    guardar_datos_en_json("campers.json", campers_list)
+    guardar_datos_en_json("data/campers.json", campers_list)
     print("¡Datos registrados exitosamente!")
 
 def ver_estado_camper(campers_list):
@@ -116,6 +122,49 @@ def ver_estado_camper(campers_list):
             break
     else:
         print("Camper no encontrado.")
-        
+
+def actualizar_camper(campers_list):
+    id_camper = input("Ingrese el número de identificación del camper a actualizar: ")
+    try:
+        id_camper = int(id_camper)
+    except ValueError:
+        print("Número de identificación no válido. Intente de nuevo.")
+        return
+
+    for camper in campers_list:
+        if camper["Nro_Identificacion"] == id_camper:
+            print("Datos actuales del camper:")
+            print(camper)
+            # Solicitar y actualizar los datos del camper
+            camper["Nombre"] = input("Ingrese el nuevo nombre del camper: ")
+            camper["Apellidos"] = input("Ingrese los nuevos apellidos del camper: ")
+            camper["Direccion"] = input("Ingrese la nueva dirección del camper: ")
+            camper["Acudiente"] = input("Ingrese el nuevo nombre del acudiente del camper: ")
+            camper["Telefono_Celular"] = input("Ingrese el nuevo número de teléfono celular del camper: ")
+            camper["Telefono_Fijo"] = input("Ingrese el nuevo número de teléfono fijo del camper: ")
+            camper["Estado"] = input("Ingrese el nuevo estado del camper: ")
+            guardar_datos_en_json("data/campers.json", campers_list)
+            print("Camper actualizado exitosamente.")
+            return
+    else:
+        print("Camper no encontrado.")
+
+def eliminar_camper(campers_list):
+    id_camper = input("Ingrese el número de identificación del camper a eliminar: ")
+    try:
+        id_camper = int(id_camper)
+    except ValueError:
+        print("Número de identificación no válido. Intente de nuevo.")
+        return
+
+    for camper in campers_list:
+        if camper["Nro_Identificacion"] == id_camper:
+            campers_list.remove(camper)
+            guardar_datos_en_json("data/campers.json", campers_list)
+            print("Camper eliminado exitosamente.")
+            return
+    else:
+        print("Camper no encontrado.")
+
 if __name__ == "__main__":
     menu()
