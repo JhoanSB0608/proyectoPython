@@ -51,7 +51,14 @@ def guardar_json(campers_list):
 def menu():
     campers_list = cargar_datos("data/campers.json")
     while True:
-        print("\n--- Menú para Filtros ---")
+        print(""" 
+  __  __ _____ _   _ _   _       ____   _    ____      _          _____ ___ _   _____ ____   ___  ____  
+ |  \/  | ____| \ | | | | |     |  _ \ / \  |  _ \    / \        |  ___|_ _| | |_   _|  _ \ / _ \/ ___| 
+ | |\/| |  _| |  \| | | | |     | |_) / _ \ | |_) |  / _ \       | |_   | || |   | | | |_) | | | \___ \ 
+ | |  | | |___| |\  | |_| |     |  __/ ___ \|  _ <  / ___ \      |  _|  | || |___| | |  _ <| |_| |___) |
+ |_|  |_|_____|_| \_|\___/      |_| /_/   \_\_| \_\/_/   \_\     |_|   |___|_____|_| |_| \_\\___/|____/ 
+                                                                                                        
+""")
         print("1. Registrar notas de filtro")
         print("2. Salir")
         opcion = input("Seleccione una opción: ")
