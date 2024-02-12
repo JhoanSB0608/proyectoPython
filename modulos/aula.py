@@ -48,7 +48,7 @@ def asignar_camper_a_ruta(lista_campers, lista_aulas):
                         if aula.get('Capacidad_Actual') < aula.get('Capacidad_Maxima'):
                             camper['ruta_asignada'] = asignar_ruta
                             aula['Capacidad_Actual'] += 1
-                            guardar_datos("salasEntreno.json", lista_aulas)
+                            guardar_datos("data/salasEntreno.json", lista_aulas)
                             print(f"Camper asignado a la ruta {asignar_ruta}.")
                             return
                         else:
@@ -77,7 +77,7 @@ def asignar_trainer_a_ruta(lista_trainers, lista_aulas):
                             "Apellidos": trainer['Apellidos']
                         })
 
-                        guardar_datos("salasEntreno.json", lista_aulas)
+                        guardar_datos("data/salasEntreno.json", lista_aulas)
                         print(f"Trainer ha sido asignado a la ruta {asignar_ruta_trainer}.")
                         return
                     else:
@@ -88,7 +88,7 @@ def asignar_trainer_a_ruta(lista_trainers, lista_aulas):
         print(f"No existe la ruta {asignar_ruta_trainer}.")
 
 def menu_aula():
-    lista_aulas = cargar_datos("salasEntreno.json")
+    lista_aulas = cargar_datos("data/salasEntreno.json")
     lista_campers = []
     lista_trainers = []
 
