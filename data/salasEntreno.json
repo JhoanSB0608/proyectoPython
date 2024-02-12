@@ -1,17 +1,22 @@
 [
     {
         "Nombre_Sala": "Sputnik",
-        "Codigo": 1,
-        "Capacidad": 33
+        "Capacidad_Maxima": 33,
+        "Campers": [
+            "1102488667"
+        ],
+        "Trainer": "88232385"
     },
     {
         "Nombre_Sala": "Artemis",
-        "Codigo": 2,
-        "Capacidad": 33
+        "Capacidad_Maxima": 33,
+        "Campers": [],
+        "Trainer": null
     },
     {
         "Nombre_Sala": "Apolo",
-        "Codigo": 3,
-        "Capacidad": 33
+        "Capacidad_Maxima": 33,
+        "Campers": [],
+        "Trainer": null
     }
 ]

@@ -1,16 +1,16 @@
 [
     {
-        "Nombre": "Juan",
-        "Nota_Teorica": 85,
-        "Nota_Practica": 75,
-        "Promedio": 80,
-        "Estado": "Aprobado"
+        "Nombre": "Manuel",
+        "Nota_Teorica": 50.0,
+        "Nota_Practica": 50.0,
+        "Promedio": 50.0,
+        "Estado": "Reprobado"
     },
     {
-        "Nombre": "María",
-        "Nota_Teorica": 70,
-        "Nota_Practica": 65,
-        "Promedio": 67.5,
+        "Nombre": "Jhoan",
+        "Nota_Teorica": 80.0,
+        "Nota_Practica": 70.0,
+        "Promedio": 75.0,
         "Estado": "Aprobado"
     }
 ]

@@ -44,13 +44,14 @@ def listar_campers_aprobados_inicial():
 def listar_entrenadores_trabajando():
     print("+ Todos los entrenadores que trabajan en Campus:")
     for entrenador in entrenadores_list:
-        print(f"{entrenador['Nombre']} {entrenador['Apellido']}")
+        print(entrenador['Nombre'])
 
 def listar_campers_bajo_rendimiento():
     print("+ Todos los campers que tienen un promedio bajo:")
     for prueba in pruebas_list:
-        if prueba["Promedio"] < 60:
-            print(f"{prueba['Nombre']} - Promedio: {prueba['Promedio']}")
+        promedio = (prueba["Nota_Teorica"] + prueba["Nota_Practica"]) / 2
+        if promedio < 60:
+            print(f"{prueba['Nombre']} - Promedio: {promedio}")
 
 def listar_camper_y_entrenador_en_ruta():
     print("+ Camper y entrenador en ruta de entrenamiento:")
@@ -74,7 +75,7 @@ def cargar_datos_desde_json(nombre_archivo):
         return {}
     
 campers_list = cargar_datos_desde_json("data/campers.json") or []
-pruebas_list = cargar_datos_desde_json("data/pruebas.json") or []
+pruebas_list = cargar_datos_desde_json("data/pruebaSeleccion.json") or []
 entrenadores_list = cargar_datos_desde_json("data/entrenadores.json") or []
 rutas_entrenamiento_list = cargar_datos_desde_json("data/rutas_entrenamiento.json") or []
 
