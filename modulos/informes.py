@@ -9,13 +9,12 @@ def menu_informes():
  |_|  |_|_____|_| \_|\___/      |____/|_____|     |___|_| \_|_|   \___/|_| \_\_|  |_|_____|____/ 
                                                                                                  
  """)
-    print("1. Listar Campers en Estado de Inscrito")
-    print("2. Listar Campers que Aprobaron el Examen Inicial")
-    print("3. Listar Entrenadores Trabajando en CampusLands")
-    print("4. Listar Campers con Bajo Rendimiento")
-    print("5. Listar Campers y Entrenador Asociados a una Ruta de Entrenamiento")
-    print("6. Mostrar Campers que Aprobaron y Perdieron cada Módulo")
-    print("7. Salir")
+    print("1. Campers inscritos")
+    print("2. Campers que aprobaron el examen inicial")
+    print("3. Entrenadores trabajando")
+    print("4. Campers de bajo rendimiento")
+    print("5. Camper y entrenador en ruta entrenamiento")
+    print("6. Salir")
     opcion = input("Seleccione una opción: ")
 
     if opcion == "1":
@@ -27,36 +26,43 @@ def menu_informes():
     elif opcion == "4":
         listar_campers_bajo_rendimiento()
     elif opcion == "5":
-        listar_campers_y_entrenador_ruta()
+        listar_camper_y_entrenador_en_ruta()
     elif opcion == "6":
-        mostrar_aprobados_y_perdidos_modulos()
-    elif opcion == "7":
         print("¡Hasta luego!")
 
 def listar_campers_inscritos():
     for camper in campers_list:
         if camper["Estado"] == "Inscrito":
-            print(f"{camper['Nombre']} {camper['Apellido']} - {camper['N_Identificacion']}")
+            print(f"{camper['Nombre']} {camper['Apellidos']} - {camper['Nro_Identificacion']}")
 
 def listar_campers_aprobados_inicial():
-    # Implementa la lógica para listar campers que aprobaron el examen inicial
-    pass
+    print("+ Todos los campers que aprobaron el examen inicial:")
+    for prueba in pruebas_list:
+        if prueba["Estado"] == "Aprobado":
+            print(f"{prueba['Nombre']} - Nota Teórica: {prueba['Nota_Teorica']}, Nota Práctica: {prueba['Nota_Practica']}")
 
 def listar_entrenadores_trabajando():
-    # Implementa la lógica para listar entrenadores que están trabajando en CampusLands
-    pass
+    print("+ Todos los entrenadores que trabajan en Campus:")
+    for entrenador in entrenadores_list:
+        print(f"{entrenador['Nombre']} {entrenador['Apellido']}")
 
 def listar_campers_bajo_rendimiento():
-    # Implementa la lógica para listar campers con bajo rendimiento
-    pass
+    print("+ Todos los campers que tienen un promedio bajo:")
+    for prueba in pruebas_list:
+        if prueba["Promedio"] < 60:
+            print(f"{prueba['Nombre']} - Promedio: {prueba['Promedio']}")
 
-def listar_campers_y_entrenador_ruta():
-    # Implementa la lógica para listar campers y entrenador asociados a una ruta de entrenamiento
-    pass
-
-def mostrar_aprobados_y_perdidos_modulos():
-    # Implementa la lógica para mostrar cuántos campers aprobaron y perdieron cada módulo
-    pass
+def listar_camper_y_entrenador_en_ruta():
+    print("+ Camper y entrenador en ruta de entrenamiento:")
+    for ruta in rutas_entrenamiento_list:
+        print(f"\n{ruta['Nombre']}:")
+        for horario, asignaciones in ruta["Asignaciones"].items():
+            print(f"\n{horario}:")
+            for asignacion in asignaciones:
+                print(f"+ Trainer: {asignacion['Entrenador']}")
+                print("  Campers:")
+                for camper in asignacion['Campers']:
+                    print(f"    - {camper}")
 
 def cargar_datos_desde_json(nombre_archivo):
     try:
@@ -67,13 +73,10 @@ def cargar_datos_desde_json(nombre_archivo):
         print(f"Error al cargar datos desde JSON: {e}")
         return {}
     
-campers_list = cargar_datos_desde_json("campers.json") or []
-pruebas_list = cargar_datos_desde_json("pruebas.json") or []
-areas_entrenamiento_list = cargar_datos_desde_json("areas_entrenamiento.json") or []
-rutas_entrenamiento_list = cargar_datos_desde_json("rutas_entrenamiento.json") or []
-entrenadores_list = cargar_datos_desde_json("entrenadores.json") or []
-matriculas_list = cargar_datos_desde_json("matriculas.json") or []
-evaluaciones_modulo_list = cargar_datos_desde_json("evaluaciones_modulo.json") or []
+campers_list = cargar_datos_desde_json("data/campers.json") or []
+pruebas_list = cargar_datos_desde_json("data/pruebas.json") or []
+entrenadores_list = cargar_datos_desde_json("data/entrenadores.json") or []
+rutas_entrenamiento_list = cargar_datos_desde_json("data/rutas_entrenamiento.json") or []
 
 if __name__ == "__main__":
     menu_informes()
