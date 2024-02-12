@@ -42,14 +42,14 @@ def calcular_promedio(teoria, practica, quices_trabajos):
 
 def guardar_json(campers_list):
     try:
-        with open("campers.json", 'w') as file:
+        with open("data/campers.json", 'w') as file:
             json.dump(campers_list, file, indent=4)
         print("Datos guardados correctamente en el archivo campers.json")
     except Exception as e:
         print(f"Error al guardar los datos: {e}")
 
 def menu():
-    campers_list = cargar_datos("campers.json")
+    campers_list = cargar_datos("data/campers.json")
     while True:
         print("\n--- Menú para Filtros ---")
         print("1. Registrar notas de filtro")
