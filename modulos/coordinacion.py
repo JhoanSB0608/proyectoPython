@@ -1,11 +1,12 @@
 import json
 
 class PruebasDeSeleccion:
-    def __init__(self, id, fecha, nota_teorica, nota_practica):
-        self.N_Identificacion = id
-        self.Fecha = fecha
+    def __init__(self, nombre, nota_teorica, nota_practica, promedio, estado):
+        self.Nombre = nombre
         self.Nota_Teorica = nota_teorica
         self.Nota_Practica = nota_practica
+        self.Promedio = promedio
+        self.Estado = estado
 
 class AreaEntrenamiento:
     def __init__(self, nombre, capacidad_maxima):
@@ -42,80 +43,125 @@ def cargar_datos_desde_json(nombre_archivo):
     try:
         with open(nombre_archivo, 'r') as file:
             data = json.load(file)
-        return data
+        return data if isinstance(data, list) else []
     except json.JSONDecodeError as e:
         print(f"Error al cargar datos desde JSON: {e}")
-        return {}
+        return []
 
 def guardar_datos_en_json(nombre_archivo, data):
     with open(nombre_archivo, 'w') as file:
         json.dump(data, file, indent=4)
 
-def asignar_camper_a_ruta():
-    while True:
-        id_camper = input("Ingrese el número de identificación del Camper: ")
-        if id_camper.isdigit():
-            id_camper = int(id_camper)
-            break
-        else:
-            print("Por favor, ingrese un número entero válido.")
+def rutas_entrenamiento_existentes():
+    print("Rutas de entrenamiento existentes:")
+    rutas_disponibles = ["Ruta NodeJS", "Ruta Java", "Ruta NetCore"]
+    for ruta in rutas_disponibles:
+        print("-", ruta)
+
+def crear_ruta_nueva():
+    nombre_ruta = input("Ingrese el nombre de la nueva ruta: ")
+    sgdb_principal = input("Ingrese el SGDB principal: ")
+    sgdb_alternativo = input("Ingrese el SGDB alternativo: ")
+    modulos = input("Ingrese los módulos separados por coma: ").split(",")
+    nueva_ruta = RutaEntrenamiento(nombre_ruta, sgdb_principal, sgdb_alternativo, modulos)
+    rutas_entrenamiento_list.append(nueva_ruta)
+    guardar_datos_en_json("data/rutas_entrenamiento.json", [ruta.__dict__ for ruta in rutas_entrenamiento_list])
+    print("Nueva ruta creada exitosamente.")
+
+def registro_notas_prueba():
+    nombre_camper = input("Nombre del camper inscrito: ")
+    nota_teorica = float(input("Nota teórica: "))
+    nota_practica = float(input("Nota práctica: "))
+    promedio = (nota_teorica + nota_practica) / 2
+    estado = "Aprobado" if promedio >= 60 else "Reprobado"
+    nueva_prueba = PruebasDeSeleccion(nombre_camper, nota_teorica, nota_practica, promedio, estado)
+    pruebas_list.append(nueva_prueba)
+    guardar_datos_en_json("data/pruebas.json", [prueba.__dict__ for prueba in pruebas_list])
+    print("Registro de notas exitoso.")
+
+def asignacion_rutas_entrenamiento():
+    horario = input("Ingrese el horario (mañana/tarde): ")
+    disponibles = []
+    asignados = []
+
+    if horario == "mañana":
+        for ruta in rutas_entrenamiento_list:
+            disponibles.append(ruta)
+
+        for matricula in matriculas_list:
+            if matricula["Horario_Entrenador"] == "tarde":
+                ruta_tarde = next((ruta for ruta in rutas_entrenamiento_list if ruta.Nombre == matricula.Codigo_Ruta), None)
+                if ruta_tarde in disponibles:
+                    disponibles.remove(ruta_tarde)
+                asignados.append(matricula)
+
+    elif horario == "tarde":
+        for ruta in rutas_entrenamiento_list:
+            disponibles.append(ruta)
+
+        for matricula in matriculas_list:
+            if matricula["Horario_Entrenador"] == "mañana":
+                ruta_manana = next((ruta for ruta in rutas_entrenamiento_list if ruta.Nombre == matricula.Codigo_Ruta), None)
+                if ruta_manana in disponibles:
+                    disponibles.remove(ruta_manana)
+                asignados.append(matricula)
+
+    print("Rutas disponibles:")
+    for i, ruta in enumerate(disponibles, 1):
+        print(f"{i}. {ruta.Nombre}")
 
     while True:
-        id_ruta = input("Ingrese el código de la ruta de entrenamiento: ")
-        if id_ruta.isdigit():
-            id_ruta = int(id_ruta)
-            break
+        opcion = input("Seleccione la ruta a asignar (ingrese el número correspondiente): ")
+        if opcion.isdigit():
+            opcion = int(opcion)
+            if 1 <= opcion <= len(disponibles):
+                break
+            else:
+                print("Opción fuera de rango. Intente de nuevo.")
         else:
-            print("Por favor, ingrese un número entero válido.")
+            print("Entrada no válida. Por favor, ingrese un número válido.")
 
-    asignar_ruta(id_camper, id_ruta)
+    ruta_seleccionada = disponibles[opcion - 1]
 
-def asignar_ruta(id_camper, id_ruta):
-    # Implementar lógica de asignación de ruta aquí
-    pass
+    # Asignar campers y trainer a la ruta seleccionada
+    # (Implementar la lógica de asignación de campers y trainers a la ruta seleccionada)
 
-def asignar_notas(id_camper, id_modulo):
-    # Implementar lógica de asignación de notas aquí
-    pass
+def asignacion_areas_entrenamiento():
+    horario = input("Ingrese el horario (mañana/tarde): ")
+    disponibles = []
+    asignados = []
 
-def asignar_notas_a_camper():
-    id_camper = int(input("Ingrese el número de identificación del Camper: "))
-    id_modulo = int(input("Ingrese el código del módulo: "))
-    asignar_notas(id_camper, id_modulo)
+    if horario == "mañana":
+        for area in areas_entrenamiento_list:
+            disponibles.append(area)
 
-def asignar_estado_a_camper(campers_list):
-    id_camper = int(input("Ingrese el número de identificación del Camper: "))
-    nuevo_estado = input("Ingrese el nuevo estado del Camper: ")
-    
-    for camper in campers_list:
-        if camper["N_Identificacion"] == id_camper:
-            camper["Estado"] = nuevo_estado
-            guardar_datos_en_json("campers.json", campers_list)
-            print("Estado actualizado exitosamente.")
-            break
-    else:
-        print("Camper no encontrado.")
+        for matricula in matriculas_list:
+            if matricula["Horario_Entrenador"] == "tarde":
+                area_tarde = next((area for area in areas_entrenamiento_list if area.Nombre == matricula.Salon_Entrenamiento), None)
+                if area_tarde in disponibles:
+                    disponibles.remove(area_tarde)
+                asignados.append(matricula)
 
-def asignar_trainer_y_horario(id_camper, id_ruta, matriculas_list):
-    id_entrenador = input("Ingrese la identificación del entrenador: ")
-    horario = input("Ingrese el horario del entrenador: ")
-    for matricula in matriculas_list:
-        if matricula["N_Identificacion_Camper"] == id_camper and matricula["Codigo_Ruta"] == id_ruta:
-            matricula["N_Identificacion_Entrenador"] = id_entrenador
-            matricula["Horario_Entrenador"] = horario
-            print("Trainer y horario asignados exitosamente.")
-            guardar_datos_en_json("matriculas.json", matriculas_list)
-            break
-    else:
-        print("Matrícula no encontrada para el Camper y ruta proporcionados.")
+    elif horario == "tarde":
+        for area in areas_entrenamiento_list:
+            disponibles.append(area)
 
-def listar_campers_aprobados_inicial(evaluaciones_modulo_list, campers_list):
-    nota_aprobacion = float(input("Ingrese la nota de aprobación inicial: "))
-    for evaluacion in evaluaciones_modulo_list:
-        if evaluacion["Nota_Teorica"] >= nota_aprobacion and evaluacion["Nota_Practica"] >= nota_aprobacion:
-            camper = next((camper for camper in campers_list if camper["N_Identificacion"] == evaluacion["N_Identificacion_Camper"]), None)
-            if camper:
-                print(f"{camper['Nombre']} {camper['Apellido']} - {camper['N_Identificacion']} ha aprobado el examen inicial.")
+        for matricula in matriculas_list:
+            if matricula["Horario_Entrenador"] == "mañana":
+                area_manana = next((area for area in areas_entrenamiento_list if area.Nombre == matricula.Salon_Entrenamiento), None)
+                if area_manana in disponibles:
+                    disponibles.remove(area_manana)
+                asignados.append(matricula)
+
+    print("Áreas de entrenamiento disponibles:")
+    for i, area in enumerate(disponibles, 1):
+        print(f"{i}. {area.Nombre}")
+
+    opcion = int(input("Seleccione el área a asignar: "))
+    area_seleccionada = disponibles[opcion - 1]
+
+    # Asignar campers y trainer al área seleccionada
+    # (Implementar la lógica de asignación de campers y trainers al área seleccionada)
 
 def menu_coordinacion():
     print(""" 
@@ -126,34 +172,35 @@ def menu_coordinacion():
  |_|  |_|_____|_| \_|\___/      |_| /_/   \_\_| \_\/_/   \_\      \____\___/ \___/|_| \_\____/___|_| \_/_/   \_\____|___\___/|_| \_|
                                                                                                                                     
  """)
-    print("1. Asignar Camper a Ruta")
-    print("2. Asignar Notas a Camper")
-    print("3. Asignar Estado a Camper")
-    print("4. Asignar Trainer y Horario")
-    print("5. Listar Campers que Aprobaron el Examen Inicial")
+    print("1. Rutas de entrenamiento existentes")
+    print("2. Crear Ruta Nueva")
+    print("3. Registro de Notas para la Prueba")
+    print("4. Asignación de Rutas de Entrenamiento para Campers Aprobados y Trainers")
+    print("5. Asignación de Áreas de Entrenamiento para Trainer y Campers Inscritos")
     print("6. Salir")
+
     opcion = input("Seleccione una opción: ")
  
     if opcion == "1":
-        asignar_camper_a_ruta()
+        rutas_entrenamiento_existentes()
     elif opcion == "2":
-        asignar_notas_a_camper()
+        crear_ruta_nueva()
     elif opcion == "3":
-        asignar_estado_a_camper(campers_list)
+        registro_notas_prueba()
     elif opcion == "4":
-        asignar_trainer_y_horario()
+        asignacion_rutas_entrenamiento()
     elif opcion == "5":
-        listar_campers_aprobados_inicial(evaluaciones_modulo_list, campers_list)
+        asignacion_areas_entrenamiento()
     elif opcion == "6":
         print("¡Hasta luego!")
 
-campers_list = cargar_datos_desde_json("campers.json") or []
-pruebas_list = cargar_datos_desde_json("pruebaSeleccion.json") or []
-areas_entrenamiento_list = cargar_datos_desde_json("salasEntreno.json") or []
-rutas_entrenamiento_list = cargar_datos_desde_json("rutas.json") or []
-entrenadores_list = cargar_datos_desde_json("entrenadores.json") or []
-matriculas_list = cargar_datos_desde_json("matriculas.json") or []
-evaluaciones_modulo_list = cargar_datos_desde_json("evaluaciones_modulo.json") or []
+campers_list = cargar_datos_desde_json("data/campers.json") or []
+pruebas_list = cargar_datos_desde_json("data/pruebaSeleccion.json") or []
+areas_entrenamiento_list = cargar_datos_desde_json("data/salasEntreno.json") or []
+rutas_entrenamiento_list = cargar_datos_desde_json("data/rutas.json") or []
+entrenadores_list = cargar_datos_desde_json("data/entrenadores.json") or []
+matriculas_list = cargar_datos_desde_json("data/matriculas.json") or []
+evaluaciones_modulo_list = cargar_datos_desde_json("data/evaluaciones_modulo.json") or []
 
 if __name__ == "__main__":
     menu_coordinacion()
