@@ -26,3 +26,9 @@ El programa sigue un flujo lógico que refleja los pasos requeridos para llevar 
 
 Conclusiones:
 El proyecto aborda de manera integral los requerimientos establecidos por el departamento académico de CampusLands para llevar a cabo el seguimiento académico de los campers en el programa intensivo de programación. La estructura del proyecto está diseñada de manera clara y organizada, lo que facilita su comprensión y mantenimiento. Además, la implementación de funciones modulares y el manejo de excepciones contribuyen a la robustez y fiabilidad del programa.
+
+<img src="img/Evidencia1.png" alt="EvidenciaDeTrabajo1" width="200" height="200">
+<img src="img/Evidencia2.png" alt="EvidenciaDeTrabajo2" width="200" height="200">
+<img src="img/Evidencia3.png" alt="EvidenciaDeTrabajo3" width="200" height="200">
+<img src="img/Evidencia4.png" alt="EvidenciaDeTrabajo4" width="200" height="200">
+<img src="img/Evidencia5.png" alt="EvidenciaDeTrabajo5" width="200" height="200">

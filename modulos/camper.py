@@ -135,7 +135,7 @@ def actualizar_camper(campers_list):
         if camper["Nro_Identificacion"] == id_camper:
             print("Datos actuales del camper:")
             print(camper)
-            # Solicitar y actualizar los datos del camper
+      
             camper["Nombre"] = input("Ingrese el nuevo nombre del camper: ")
             camper["Apellidos"] = input("Ingrese los nuevos apellidos del camper: ")
             camper["Direccion"] = input("Ingrese la nueva dirección del camper: ")
