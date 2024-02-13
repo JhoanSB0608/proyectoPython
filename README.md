@@ -1,60 +1,28 @@
-El departamento académico de campuslands desea crear un programa que le permita llevar el seguimiento Académico de todos los campers que se encuentran matriculados en el programa intensivo de programación.
+Estructura del proyecto:
+El proyecto se organiza en un menú principal que contiene opciones para administrar campers, entrenadores, matrículas, coordinación, asignación de rutas y áreas de entrenamiento, filtros e informes. Cada uno de estos menús secundarios se encarga de una funcionalidad específica, como el registro y actualización de campers, entrenadores y áreas de entrenamiento, consulta de matrículas, asignación de rutas y áreas, generación de informes, entre otros.
 
-Usted es contratado para liderar el desarrollo del programa que debe cumplir con las siguientes
-especificaciones:
+Registro de Campers: Se implementa un módulo dedicado al registro de campers, donde se recopila la información necesaria para el seguimiento académico de cada camper, como su número de identificación, nombre, apellidos, dirección, acudiente, teléfonos de contacto y estado.
 
-1. Registro de campers : El programa debe permitir a las personas encargadas de procesar las inscripciones
-a el programa; la información que se tiene por cada camper es la siguiente : nro de identificación, nombre,
-Apellidos, dirección, acudiente, teléfonos de contacto(Nro celular y nro fijo),estado.
+Registro de Trainer: Similar al registro de campers, se proporciona un módulo para registrar a los entrenadores expertos encargados de dirigir las diferentes rutas de entrenamiento. Se recopila información como el nombre, apellidos, identificación y horario.
 
-2. Campus cuenta con diferentes rutas de entrenamiento las cuales deben cumplir los candidatos que superen
-La prueba inicial. Las rutas son: Ruta NodeJS, Ruta Java, Ruta NetCore.
+Gestión de Rutas de Entrenamiento: Se crea un módulo específico para administrar las rutas de entrenamiento disponibles en CampusLands. Se pueden listar las rutas existentes, crear nuevas rutas y asignar campers y trainers a las rutas.
 
-3. Registro de prueba : La persona encargada de asignar las pruebas debe contar con una opción en el programa
-Que le permita registrar la nota de los campers que se han registrado y tienen un estado de inscrito. La
-Prueba es aprobada si el promedio entre la nota teórica y la nota practica es >=60.
+Registro de Pruebas y Evaluaciones: Se incorpora un módulo para registrar las notas de las pruebas teóricas y prácticas de los campers. Se calcula el promedio de las notas y se determina si el camper ha aprobado la prueba según un puntaje mínimo establecido.
 
-4. Registro de áreas de entrenamiento : Campus cuenta con diferentes áreas de entrenamiento en la cuales
-Los campers aprenden los diferentes stack etnológicos dependiendo de las rutas de entrenamiento. Por el
-Momento se cuenta con tres áreas de entrenamiento con una capacidad máxima de 33 campers.
+Gestión de Matrículas: Se implementa un módulo para gestionar las matrículas de los campers aprobados en las diferentes rutas de entrenamiento. Se registran datos como el camper, entrenador asignado, ruta de entrenamiento, fechas de inicio y finalización, y salón de entrenamiento.
 
-5. Creación de rutas de entrenamiento : La coordinación académica desea poder crear nuevas rutas
-de entrenamiento las cuales contienen la siguiente información.
-* Fundamentos de programación (Introducción a la algoritmia, PSeInt y Python)
-* Programación Web (HTML, CSS y Bootstrap)
-* Programación formal (Java, JavaScript, C#)
-* Bases de datos (Mysql, MongoDb y Postgresql). Cada ruta tiene un SGDB principal y un alternativo.
-* Backend (NetCore, Spring Boot, NodeJS y Express)
+Generación de Reportes: Se crea un módulo de reportes que permite obtener información detallada sobre los campers y entrenadores, como la lista de campers inscritos, campers que aprobaron el examen inicial, entrenadores trabajando en CampusLands y campers con bajo rendimiento, entre otros.
 
-6. Los campers que pasaron de inscritos a aprobados podrán ser asignados a cualquiera de las rutas que se han
-creado previamente. Se debe tener en cuenta que no se puede exceder la capacidad de cada una de las áreas
-de entrenamiento.
+Menú Principal y Navegación: Se diseña un menú principal que organiza todas las funcionalidades del sistema en diferentes opciones. Cada opción del menú principal corresponde a un módulo específico del sistema, lo que facilita la navegación y el acceso a las diferentes funcionalidades.
 
-7. CampusLands cuenta con Entrenadores expertos encargados de dirigir cada una de las rutas de entrenamiento.
-es quiere decir que a cada entrenador se le podrán asignar diferentes rutas de entrenamiento teniendo en
-cuenta su horario.
 
-8. Gestor de matriculas. La coordinación académica desea contar con un modulo de matriculas que le permita
-asignar los campers aprobados, experto encargado, ruta de entrenamiento asignada, fecha de inicio, fecha
-finalizacion y salón de entrenamiento.
+Análisis de la implementación:
 
-9. Periódicamente los campers son evaluados para conocer las habilidades adquiridas durante el proceso de
-Entrenamiento, cuando finaliza cada modulo los campers deben presentar una prueba teórica y una prueba
-Practica. Esta prueba es considerada como aprobada si el promedio de las dos dan un valor >=60.
-La prueba teórica tiene un peso de 30%, la prueba practica tiene un peso del 60%. Durante el proceso el
-Entrenador realiza quices, trabajos los cuales tienen un peso del 10%. Al finalizar el proceso de evaluación
-Se considera aprobado el modulo si la nota final es > 60.
+Se utilizan funciones para modularizar el código y facilitar su mantenimiento.
+Se implementan mecanismos de manejo de excepciones para gestionar posibles errores durante la carga y manipulación de archivos JSON.
+Se definen funciones específicas para realizar acciones como listar rutas de entrenamiento, asignar campers a rutas, registrar notas de pruebas, consultar matrículas, generar informes, entre otras.
+El programa sigue un flujo lógico que refleja los pasos requeridos para llevar a cabo las diferentes operaciones necesarias para la gestión académica de los campers en el programa intensivo de programación.
 
-10. Estudiantes en riesgo. La coordinación académica cuando finaliza cada uno de los módulos de las rutas
-evalúa el rendimiento de cada uno de los campers teniendo en cuenta la nota obtenida en cada modulo. Si la nota
-Es <60 el camper queda en rendimiento bajo lo cual genera un llamado de atención por tal motivo
-Se debe permitir consultar los campers en riesgo bajo.
 
-11. Modulo de reportes.
-a. Listar los campers que se encuentren en estado de inscrito.
-b. Listar los campers que aprobaron el examen inicial.
-c. Listar los entrenadores que se encuentran trabajando con campuslands.
-d. Listar los estudiantes que cuentan con bajo rendimiento.
-e. Listar los campers y entrenador que se encuentren asociados a una ruta de entrenamiento.
-f. Mostrar cuantos campers perdieron y aprobaron cada uno de los modulos teniendo en cuenta
-la ruta de entrenamiento y el entrenador encargado.
+Conclusiones:
+El proyecto aborda de manera integral los requerimientos establecidos por el departamento académico de CampusLands para llevar a cabo el seguimiento académico de los campers en el programa intensivo de programación. La estructura del proyecto está diseñada de manera clara y organizada, lo que facilita su comprensión y mantenimiento. Además, la implementación de funciones modulares y el manejo de excepciones contribuyen a la robustez y fiabilidad del programa.
