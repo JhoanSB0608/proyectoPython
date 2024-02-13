@@ -1,29 +1,29 @@
 import json
 
-def realizar_matricula():
+def realizar_matricula(campers_list, lista_aulas):
     id_camper = int(input("Ingrese el ID del camper a matricular: "))
     
     camper_matricular = None
     for camper in campers_list:
-        if camper.get('id') == id_camper and camper.get('estado') == 'aprobado':
+        if camper.get('Nro_Identificacion') == id_camper and camper.get('Estado') == 'Inscrito':
             camper_matricular = camper
             break
     if not camper_matricular:
-        print("Camper no encontrado o no aprobado.")
+        print("Camper no encontrado o no inscrito.")
         return
     
-    print("Rutas de entrenamiento disponibles:")
+    print("Aulas de entrenamiento disponibles:")
     for aula in lista_aulas:
-        print(f"{aula['ruta_asignada']} - Capacidad: {aula['capacidad_actual']}/{aula['capacidad_maxima']}")
+        print(f"{aula['Nombre_Sala']} - Capacidad: {aula['Capacidad_Maxima']}")
 
-    ruta_asignada = input("Seleccione la ruta de entrenamiento para la matrícula: ")
+    nombre_sala = input("Seleccione la sala de entrenamiento para la matrícula: ")
     fecha_inicio_str = input("Ingrese la fecha de inicio (formato DD/MM/YYYY): ")
     fecha_finalizacion_str = input("Ingrese la fecha de finalización (formato DD/MM/YYYY): ")
     salon_entrenamiento = input("Ingrese el salón de entrenamiento: ")
     trainer_encargado = input("Ingrese el nombre del Trainer encargado: ")
 
     matricula = {
-        'ruta_asignada': ruta_asignada,
+        'nombre_sala': nombre_sala,
         'fecha_inicio': fecha_inicio_str,
         'fecha_finalizacion': fecha_finalizacion_str,
         'salon_entrenamiento': salon_entrenamiento,
@@ -34,8 +34,13 @@ def realizar_matricula():
     camper_matricular['estado_matricula'] = 'matriculado'
 
     for aula in lista_aulas:
-        if aula['ruta_asignada'] == ruta_asignada:
-            aula['capacidad_actual'] += 1
+        if aula['Nombre_Sala'] == nombre_sala:
+            aula['Capacidad_Maxima'] += 1
+
+            if aula['Trainer'] is not None:
+                trainer_id = aula['Trainer']
+                print(f"Camper asignado al entrenador con ID {trainer_id}")
+
     print("Matrícula realizada con éxito.")
 
 def cargar_datos_desde_json(nombre_archivo):
@@ -51,10 +56,10 @@ def guardar_datos_en_json(nombre_archivo, data):
     with open(nombre_archivo, 'w') as file:
         json.dump(data, file, indent=4)
         
-campers_list = cargar_datos_desde_json("data/campers.json") or []
-lista_aulas = cargar_datos_desde_json("data/salasEntreno.json") or []
-
 def matricula():
+    campers_list = cargar_datos_desde_json("data/campers.json") or []
+    lista_aulas = cargar_datos_desde_json("data/salasEntreno.json") or []
+    
     while True:
         print(""" 
   __  __    _  _____ ____  ___ ____ _   _ _        _    
@@ -68,7 +73,7 @@ def matricula():
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
-            realizar_matricula()
+            realizar_matricula(campers_list, lista_aulas) 
         elif opcion == "2":
             print("¡Hasta luego!")
             break
