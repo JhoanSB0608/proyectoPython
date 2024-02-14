@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 
 class PruebaSeleccion:
@@ -160,6 +161,27 @@ def asignar_campers_entrenador_a_area():
 
     print("El área seleccionada no existe.")
 
+def elegir_horario():
+    print("Horarios disponibles:")
+    print("1. De 6:00 a.m a 9:00 a.m")
+    print("2. De 10:00 a.m a 1:00 p.m")
+    print("3. De 2:00 p.m a 5:00 p.m")
+    print("4. De 6:00 p.m a 10:00 p.m")
+    
+    opcion = input("Seleccione un horario (1/2/3/4): ")
+    
+    if opcion == "1":
+        return "De 6:00 a.m a 9:00 a.m"
+    elif opcion == "2":
+        return "De 10:00 a.m a 1:00 p.m"
+    elif opcion == "3":
+        return "De 2:00 p.m a 5:00 p.m"
+    elif opcion == "4":
+        return "De 6:00 p.m a 10:00 p.m"
+    else:
+        print("Opción inválida. Inténtelo de nuevo.")
+        return elegir_horario()
+
 def menu_coordinacion():
     print(""" 
   __  __ _____ _   _ _   _       ____   _    ____      _           ____ ___   ___  ____  ____ ___ _   _    _    ____ ___ ___  _   _ 
@@ -172,9 +194,10 @@ def menu_coordinacion():
     print("1. Rutas de entrenamiento existentes")
     print("2. Crear Ruta Nueva")
     print("3. Registro de Notas para la Prueba")
-    print("4. Asignación de Rutas de Entrenamiento para Campers Aprobados y Trainers")
-    print("5. Asignación de Áreas de Entrenamiento para Trainer y Campers Inscritos")
-    print("6. Salir")
+    print("4. Elegir Horario")
+    print("5. Asignación de Rutas de Entrenamiento para Campers Aprobados y Trainers")
+    print("6. Asignación de Áreas de Entrenamiento para Trainer y Campers Inscritos")
+    print("7. Salir")
 
     opcion = input("Seleccione una opción: ")
  
@@ -185,10 +208,13 @@ def menu_coordinacion():
     elif opcion == "3":
         registro_notas_prueba()
     elif opcion == "4":
-        asignar_campers_entrenador_a_ruta()
+        horario_elegido = elegir_horario()
+        print("Horario elegido:", horario_elegido)
     elif opcion == "5":
-        asignar_campers_entrenador_a_area()
+        asignar_campers_entrenador_a_ruta()
     elif opcion == "6":
+        asignar_campers_entrenador_a_area()
+    elif opcion == "7":
         print("¡Hasta luego!")
 
 campers_list = cargar_datos_desde_json("data/campers.json") or []
