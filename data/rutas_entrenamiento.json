@@ -14,8 +14,10 @@
             "NodeJS",
             "Express"
         ],
-        "Campers": [],
-        "Trainer": null
+        "Campers": [
+            "1095302707"
+        ],
+        "Trainer": "88232385"
     },
     {
         "Nombre": "Java",
@@ -32,10 +34,8 @@
             "MongoDb",
             "Spring Boot"
         ],
-        "Campers": [
-            "1102488667"
-        ],
-        "Trainer": "88232385"
+        "Campers": [],
+        "Trainer": null
     },
     {
         "Nombre": "NetCore",
